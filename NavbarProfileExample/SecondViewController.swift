@@ -13,26 +13,30 @@ class SecondViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        print("xxxaaa")
+        print("xxxaaa")
+        print("xxxaaa")
+        print("xxxaaa")
+        
         if self.navigationController == nil {
             return
         }
         
         // Create a navView to add to the navigation bar
         let navView = UIView()
-        navView.backgroundColor = .red
         // Create the label
         let label = UILabel()
         //label.backgroundColor = .green
         label.text = "Second View"
         label.sizeToFit()
-        label.center = CGPoint(x: 0, y: -8)
+        label.center = CGPoint(x: 48, y: 8)
         label.textAlignment = NSTextAlignment.center
         
         let label2 = UILabel()
         //label2.backgroundColor = .blue
         label2.text = "Small"
         label2.sizeToFit()
-        label2.center = CGPoint(x: 0, y: 8)
+        label2.center = CGPoint(x: 48, y: 28)
         label2.textAlignment = NSTextAlignment.center
         
         // Create the image view
@@ -54,6 +58,8 @@ class SecondViewController: UIViewController {
         
         image.contentMode = UIView.ContentMode.scaleAspectFit
         
+        self.view.addSubview(navView)
+        
         // Add both the label and image view to the navView
         navView.addSubview(label)
         navView.addSubview(label2)
@@ -65,17 +71,17 @@ class SecondViewController: UIViewController {
         // Set the navView's frame to fit within the titleView
         navView.sizeToFit()
         
+        let singleTap = UITapGestureRecognizer(target: self, action: #selector(singleTapAction))
+        self.navigationItem.titleView!.addGestureRecognizer(singleTap)
+        
+        self.navigationItem.titleView?.widthAnchor.constraint(equalToConstant: 100).isActive = true
+        self.navigationItem.titleView?.heightAnchor.constraint(equalToConstant: 40.0).isActive = true
+    }
+
+    @objc func singleTapAction() {
+        print("Single")
+        // Write your code here ...
+        
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }
