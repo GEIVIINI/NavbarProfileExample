@@ -33,12 +33,6 @@ class ViewController: UIViewController {
         self.navigationItem.titleView = navView
         navView.sizeToFit()
         
-        
-        self.navigationItem.titleView?.backgroundColor = .red
-        navView.backgroundColor = .green
-        
-        self.navigationItem.titleView?.widthAnchor.constraint(equalToConstant: 100).isActive = true
-        self.navigationItem.titleView?.heightAnchor.constraint(equalToConstant: 40.0).isActive = true
     }
 
 

@@ -13,71 +13,74 @@ class SecondViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        print("xxxaaa")
-        print("xxxaaa")
-        print("xxxaaa")
-        print("xxxaaa")
+        setNavBarProfile(name: "Methawin", location: "Chiangmai", profileImage: UIImage(named: "girl2")!)
+        
+    }
+
+    func setNavBarProfile(name: String, location: String, profileImage: UIImage) {
         
         if self.navigationController == nil {
             return
         }
         
-        // Create a navView to add to the navigation bar
         let navView = UIView()
-        // Create the label
-        let label = UILabel()
-        //label.backgroundColor = .green
-        label.text = "Second View"
-        label.sizeToFit()
-        label.center = CGPoint(x: 48, y: 8)
-        label.textAlignment = NSTextAlignment.center
+        let displayNameLabel = UILabel()
+        let locationCheckInLabel = UILabel()
+        let imageSize : CGFloat = 33
         
-        let label2 = UILabel()
-        //label2.backgroundColor = .blue
-        label2.text = "Small"
-        label2.sizeToFit()
-        label2.center = CGPoint(x: 48, y: 28)
-        label2.textAlignment = NSTextAlignment.center
+        displayNameLabel.textColor = .black
+        displayNameLabel.font = UIFont(name: displayNameLabel.font.fontName, size: 14)
+        displayNameLabel.text =  name
+        displayNameLabel.sizeToFit()
+        let textSize = displayNameLabel.text!.size(withAttributes:[.font: UIFont.systemFont(ofSize:14)]).width + imageSize
+        displayNameLabel.center = CGPoint(x: textSize / 2 + imageSize / 2, y: 12)
+        displayNameLabel.textAlignment = NSTextAlignment.center
         
-        // Create the image view
+        locationCheckInLabel.textColor = .lightGray
+        locationCheckInLabel.font = UIFont(name: locationCheckInLabel.font.fontName, size: 12)
+        locationCheckInLabel.text = location
+        locationCheckInLabel.sizeToFit()
+        locationCheckInLabel.center = CGPoint(x: imageSize + imageSize/2 + 12 , y: 28)
+        locationCheckInLabel.textAlignment = NSTextAlignment.left
+        
         let image = UIImageView()
-        image.image = UIImage(named: "girl2")
-        // To maintain the image's aspect ratio:
+        image.image = profileImage//UIImage(named: "girl2")
         let imageAspect = image.image!.size.width/image.image!.size.height
-        // Setting the image frame so that it's immediately before the text:
         image.frame = CGRect(
-            x: label.frame.origin.x-label.frame.size.height*imageAspect * 1.5 - 8,
-            y: label.frame.origin.y * 1.5 + 8,
-            width: label.frame.size.height*imageAspect * 1.5,
-            height: label.frame.size.height * 1.5
+            x: displayNameLabel.frame.origin.x - displayNameLabel.frame.size.height * imageAspect - imageSize / 2,
+            y: displayNameLabel.frame.origin.y,
+            width: imageSize,
+            height: imageSize
         )
-        
         image.layer.masksToBounds = false
-        image.layer.cornerRadius = image.frame.height/2
+        image.layer.cornerRadius = image.frame.height / 2
         image.clipsToBounds = true
-        
         image.contentMode = UIView.ContentMode.scaleAspectFit
         
         self.view.addSubview(navView)
-        
-        // Add both the label and image view to the navView
-        navView.addSubview(label)
-        navView.addSubview(label2)
+        navView.addSubview(displayNameLabel)
+        navView.addSubview(locationCheckInLabel)
         navView.addSubview(image)
-        
-        // Set the navigation bar's navigation item's titleView to the navView
+        navView.sizeToFit()
         self.navigationItem.titleView = navView
         
-        // Set the navView's frame to fit within the titleView
-        navView.sizeToFit()
+        self.navigationItem.titleView?.backgroundColor = .red
+        
+        let displayNameSize = displayNameLabel.text!.size(withAttributes:[.font: UIFont.systemFont(ofSize:14)]).width + imageSize
+        let locationSize = locationCheckInLabel.text!.size(withAttributes:[.font: UIFont.systemFont(ofSize:12)]).width + imageSize
+        if displayNameSize > locationSize {
+            self.navigationItem.titleView?.widthAnchor.constraint(equalToConstant: displayNameSize).isActive = true
+        } else {
+            self.navigationItem.titleView?.widthAnchor.constraint(equalToConstant: locationSize).isActive = true
+        }
+        self.navigationItem.titleView?.heightAnchor.constraint(equalToConstant: 40.0).isActive = true
+        
         
         let singleTap = UITapGestureRecognizer(target: self, action: #selector(singleTapAction))
         self.navigationItem.titleView!.addGestureRecognizer(singleTap)
         
-        self.navigationItem.titleView?.widthAnchor.constraint(equalToConstant: 100).isActive = true
-        self.navigationItem.titleView?.heightAnchor.constraint(equalToConstant: 40.0).isActive = true
     }
-
+    
     @objc func singleTapAction() {
         print("Single")
         // Write your code here ...
